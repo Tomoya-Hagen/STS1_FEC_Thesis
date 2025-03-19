@@ -1,9 +1,7 @@
 #include "rs.hpp"
 
 #include <cassert>
-#include <cstddef>
 #include <cstdint>
-#include <format>
 #include <iostream>
 #include <string>
 
