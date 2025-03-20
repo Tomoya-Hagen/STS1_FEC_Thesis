@@ -294,14 +294,14 @@
          Poly *temp = polynoms + ID_TPOLY2;
          mulp->length = 2;
  
-         for(int8_t i = 128 - (ecc_length / 2); i <= 128 + (ecc_length / 2); i++){
-             mulp->at(0) = 1;
-             mulp->at(1) = gf::pow(2, i * 11);
- 
-             gf::poly_mul(gen, mulp, temp);
- 
-             gen->Copy(temp);
-         }
+         for(uint8_t i = 128 - (ecc_length / 2); i <= 128 + (ecc_length / 2); i++){
+            mulp->at(0) = 1;
+            mulp->at(1) = gf::pow(2, (i * 11) % 255);
+
+            gf::poly_mul(gen, mulp, temp);
+
+            gen->Copy(temp);
+        }
      }
  
      void CalcSyndromes(const Poly *msg) {
