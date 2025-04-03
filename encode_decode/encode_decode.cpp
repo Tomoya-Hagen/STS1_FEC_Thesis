@@ -84,7 +84,7 @@ namespace sts1cobcsw
 
     void ConvertBases(uint8_t *data, bool dual_to_alpha, size_t size)
     {
-        if (dual_to_alpha)
+        if (!dual_to_alpha)
         {
             for (int i = 0; i < size; i++)
             {
