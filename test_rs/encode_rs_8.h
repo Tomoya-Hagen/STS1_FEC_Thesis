@@ -7,14 +7,14 @@
 #include "fixed.h"
 #include "ccsds.h"
 
-void encode_rs_8(data_t* data, data_t* parity, int pad)
+void encode_rs_8(data_t* data, data_t* parity)
 {
     int i, j;
     data_t feedback;
 
     memset(parity, 0, NROOTS * sizeof(data_t));
 
-    for (i = 0; i < NN - NROOTS - PAD; i++) {
+    for (i = 0; i < NN - NROOTS; i++) {
         feedback = INDEX_OF[data[i] ^ parity[0]];
         if (feedback != A0) { /* feedback term is non-zero */
 #ifdef UNNORMALIZED
@@ -23,8 +23,9 @@ void encode_rs_8(data_t* data, data_t* parity, int pad)
              */
             feedback = MODNN(NN - GENPOLY[NROOTS] + feedback);
 #endif
-            for (j = 1; j < NROOTS; j++)
+            for (j = 1; j < NROOTS; j++) {
                 parity[j] ^= ALPHA_TO[MODNN(feedback + GENPOLY[NROOTS - j])];
+            }
         }
         /* Shift */
         memmove(&parity[0], &parity[1], sizeof(data_t) * (NROOTS - 1));

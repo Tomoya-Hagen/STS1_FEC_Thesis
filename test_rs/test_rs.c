@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "decode_rs.h"
-#include "encode_rs.h"
+#include "fec.h"
 
 int main() {
     data_t data[223] = {0};
@@ -14,14 +14,16 @@ int main() {
         data[i] = i;
     }
 
-    encode_rs_ccsds(data, parity, pad);
+    data_t output[NN];
+
+    encode_rs_ccsds(data, parity, output);
 
     printf("Encoded: ");
-    for (i = 0; i < 32; i++) {
-        printf("%u ", parity[i]);
+    for (i = 0; i < NN; i++) {
+        printf("%u ", output[i]);
     }
 
-    
+
     int x = 10;
     printf("\nErrors: \n");
     for (i = 0; i < 16; i += 4) {
@@ -31,7 +33,7 @@ int main() {
         data[x + i + 3] ^= 0x15;
         printf("%d: %d ", x + i, data[x + i]);
     }
-    
+
     data_t decoded[255] = {0};
     memcpy(decoded, data, 223);
     memcpy(decoded + 223, parity, 32);

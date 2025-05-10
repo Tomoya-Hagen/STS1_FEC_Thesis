@@ -12,12 +12,8 @@
 #include "decode_rs_8.h"
 #include "ccsds.h"
 
-int decode_rs_8(data_t *data, int *eras_pos, int no_eras, int pad) {
+int decode_rs_8(data_t *data, int *eras_pos, int no_eras) {
   int retval;
-
-  if (pad < 0 || pad > 222) {
-    return -1;
-  }
 
 #if !defined(NULL)
 #define NULL ((void *)0)
@@ -49,7 +45,7 @@ int decode_rs_8(data_t *data, int *eras_pos, int no_eras, int pad) {
     for (i = 0; i < NROOTS; i++)
       s[i] = data[0];
 
-    for (j = 1; j < NN - PAD; j++) {
+    for (j = 1; j < NN; j++) {
       for (i = 0; i < NROOTS; i++) {
         if (s[i] == 0) {
           s[i] = data[j];
@@ -255,8 +251,8 @@ int decode_rs_8(data_t *data, int *eras_pos, int no_eras, int pad) {
       }
 #endif
       /* Apply error to data */
-      if (num1 != 0 && loc[j] >= PAD) {
-        data[loc[j] - PAD] ^= ALPHA_TO[MODNN(INDEX_OF[num1] + INDEX_OF[num2] +
+      if (num1 != 0 && loc[j] >= 0) { // Not sure about loc[j] >= 0
+        data[loc[j]] ^= ALPHA_TO[MODNN(INDEX_OF[num1] + INDEX_OF[num2] +
                                              NN - INDEX_OF[den])];
       }
     }
