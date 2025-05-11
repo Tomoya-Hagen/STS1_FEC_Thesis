@@ -4,6 +4,7 @@
 #define A0 (NN) /* Special reserved value encoding zero in index form */
 
 #include <string.h>
+#include "fec.h"
 #include "fixed.h"
 #include "ccsds.h"
 

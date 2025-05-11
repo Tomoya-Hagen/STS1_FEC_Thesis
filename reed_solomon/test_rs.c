@@ -16,7 +16,7 @@ int main() {
 
     data_t output[NN];
 
-    encode_rs_ccsds(data, parity, output);
+    encode_rs_ccsds(data, output);
 
     printf("Encoded: ");
     for (i = 0; i < NN; i++) {
@@ -39,7 +39,7 @@ int main() {
     memcpy(decoded + 223, parity, 32);
     int* erasures = NULL;
 
-    int roots = decode_rs_ccsds(decoded, erasures, 0, pad);
+    int roots = decode_rs_ccsds(decoded, erasures, 0);
     printf("\nroots: %d\n", roots);
 
     printf("Decoded: ");
@@ -47,5 +47,5 @@ int main() {
         printf("%u ", decoded[i]);
     }
 
-    
+
 }

@@ -4,9 +4,12 @@
  * Copyright 2002, Phil Karn, KA9Q
  * May be used under the terms of the GNU Lesser General Public License (LGPL)
  */
+ #include <string.h>
+
  #include "fec.h"
- 
- int decode_rs_ccsds(data_t* data, int* eras_pos, int no_eras)
+ #include "fixed.h"
+
+ void decode_rs_ccsds(data_t* data, data_t* output, int* eras_pos, int no_eras)
  {
      int i, r;
      data_t cdata[NN];
@@ -22,5 +25,6 @@
          for (i = 0; i < NN; i++)
              data[i] = Taltab[cdata[i]];
      }
-     return r;
+
+     memmove(output, &data[0], NN - NROOTS);
  }
