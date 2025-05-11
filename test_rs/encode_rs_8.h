@@ -4,8 +4,8 @@
 #define A0 (NN) /* Special reserved value encoding zero in index form */
 
 #include <string.h>
+#include "fec.h"
 #include "fixed.h"
-#include "ccsds.h"
 
 void encode_rs_8(data_t* data, data_t* parity, int pad)
 {
