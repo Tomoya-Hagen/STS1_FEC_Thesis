@@ -10,6 +10,8 @@ set(SOURCES
     test.cpp
     ../viterbi/viterbi.cpp)
 
+add_subdirectory(../reed_solomon)
+
 add_executable(encode_decode_test ${SOURCES})
 
 include_directories(../viterbi
