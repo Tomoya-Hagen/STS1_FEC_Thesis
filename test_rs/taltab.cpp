@@ -1,3 +1,4 @@
+#include "fec.h"
 
 unsigned char Taltab[] = {
 

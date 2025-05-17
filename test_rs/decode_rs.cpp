@@ -5,8 +5,7 @@
  * May be used under the terms of the GNU Lesser General Public License (LGPL)
  */
  #include "fec.h"
- #include "taltab.h"
- #include <string.h>
+ #include <cstring>
  #include <stdio.h>
 
  int decode_rs_ccsds(data_t* data, data_t* decoded, int* eras_pos, int no_eras, int pad)
@@ -25,6 +24,6 @@
          for (i = 0; i < NN - pad; i++)
              data[i] = Taltab[cdata[i]];
      }
-     memcpy(decoded, data, (NN - NROOTS) * sizeof(data_t));
+     std::memcpy(decoded, data, (NN - NROOTS) * sizeof(data_t));
      return r;
  }

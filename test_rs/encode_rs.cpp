@@ -5,9 +5,7 @@
  * fixed bug Aug 2007
  * May be used under the terms of the GNU Lesser General Public License (LGPL)
  */
- #include "encode_rs_8.h"
  #include "fec.h"
- #include "taltab.h"
 
  void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block, int pad)
  {

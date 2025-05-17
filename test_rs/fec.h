@@ -3,7 +3,6 @@
  * Copyright 2004, Phil Karn, KA9Q
  * May be used under the terms of the GNU Lesser General Public License (LGPL)
  */
- #include "fixed.h"
 
  #ifndef _FEC_H_
  #define _FEC_H_
@@ -11,6 +10,25 @@
  #define ALPHA_TO CCSDS_alpha_to
  #define INDEX_OF CCSDS_index_of
  #define GENPOLY CCSDS_Poly
+ typedef unsigned char data_t;
+
+static inline int mod255(int x)
+{
+    while (x >= 255) {
+        x -= 255;
+        x = (x >> 8) + (x & 255);
+    }
+    return x;
+}
+#define MODNN(x) mod255(x)
+
+#define MM 8
+#define NN 255
+#define NROOTS 32
+#define FCR 112
+#define PRIM 11
+#define IPRIM 116
+#define PAD pad
 
  /* General purpose RS codec, 8-bit symbols */
  void encode_rs_char(void* rs, unsigned char* data, unsigned char* parity);
@@ -31,7 +49,7 @@
  /* Tables to map from conventional->dual (Taltab) and
   * dual->conventional (Tal1tab) bases
   */
-//  extern unsigned char Taltab[], Tal1tab[];
+ extern unsigned char Taltab[], Tal1tab[];
 
 extern unsigned char CCSDS_alpha_to[];
 extern unsigned char CCSDS_index_of[];

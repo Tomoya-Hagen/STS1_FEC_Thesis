@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <string.h>
+#include <cstring>
+#include <random>
 
 #include "fec.h"
 
@@ -9,8 +10,13 @@ int main() {
     int pad = 0;
     int i;
 
+    std::random_device rd;                          // Seed
+    std::mt19937 gen(rd());                         // Mersenne Twister RNG
+    std::uniform_int_distribution<> dist(1, 254);   // Range
+
     for (i = 0; i < 223; i++) {
-        data[i] = i;
+        int randomNumber = dist(gen);
+        data[i] = --randomNumber;
     }
 
     unsigned char block[NN] = {0};
@@ -30,10 +36,10 @@ int main() {
     int x = 10;
     // printf("\nErrors: \n");
     for (i = 0; i < 16; i += 4) {
-        block[x + i]  ^= 0x1F;
+        block[x + i]  ^= 0x11;
         block[x + i + 1] ^= 0xF1;
-        block[x + i + 2] ^= 0xCC;
-        block[x + i + 3] ^= 0x1B;
+        block[x + i + 2] ^= 0xBF;
+        block[x + i + 3] ^= 0xB1;
         // printf("%d: %d ", x + i, block[x + i]);
     }
 
