@@ -38,7 +38,7 @@ int main() {
     for (i = 0; i < 16; i += 4) {
         block[x + i]  ^= 0x11;
         block[x + i + 1] ^= 0xF1;
-        block[x + i + 2] ^= 0xBF;
+        block[x + i + 2] ^= 0xEF;
         block[x + i + 3] ^= 0xB1;
         // printf("%d: %d ", x + i, block[x + i]);
     }
