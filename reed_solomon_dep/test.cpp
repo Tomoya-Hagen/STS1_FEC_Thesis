@@ -1,11 +1,16 @@
 #include "rs.hpp"
+<<<<<<< HEAD
 #include "../encode_decode/encode_decode.h"
 
 #include <bitset>
+=======
+
+>>>>>>> fix_rs
 #include <cassert>
 #include <cstdint>
 #include <iostream>
 #include <string>
+<<<<<<< HEAD
 #include <vector>
 #include <stdlib.h>
 
@@ -21,11 +26,19 @@ void test_ccsds_short_message() {
   RS::ReedSolomon<223, 32> rs;
   uint8_t data[223] = {};
   // std::cout << "size is: " << sizeof(data) << "\n";
+=======
+
+void test_ccsds_short_message() {
+  RS::ReedSolomon<223, 32> rs;
+  uint8_t data[223] = {};
+  std::cout << "size is: " << sizeof(data) << "\n";
+>>>>>>> fix_rs
   for (int i = 0; i < sizeof(data); i++) {
     // data[i] = rand() % 255;
     data[i] = i;
   }
 
+<<<<<<< HEAD
   std::cout << "\n";
 
   uint8_t buffer[255] = {};
@@ -44,10 +57,20 @@ void test_ccsds_short_message() {
 
   for (int i = 0; i < 1; i++) {
     buffer[i] = 205 - i;
+=======
+  uint8_t buffer[255] = {};
+
+  rs.Encode(data, buffer);
+
+  int random = 500;
+  for (int i = 0; i < 32; i++) {
+    data[(i + random) % 255] = 0;
+>>>>>>> fix_rs
   }
 
   uint8_t decoded[223] = {};
 
+<<<<<<< HEAD
   sts1cobcsw::ConvertBases(buffer, true, 255);
 
   rs.Decode(buffer, decoded);
@@ -63,6 +86,15 @@ void test_ccsds_short_message() {
   std::cout << "\n" << (rs.had_errors() ? "Had errors" : "No errors") << "\n" << (rs.error_correction_successful() ? "Errors corrected" : "Not corrected") << "\n";
   // std::cout << "\n" << "Test successful!"
             // << "\n";
+=======
+  rs.Decode(buffer, decoded);
+
+  for (int i = 0; i < sizeof(decoded); i++) {
+    assert(data[i] == decoded[i]);
+  }
+  std::cout << "Test successful!"
+            << "\n";
+>>>>>>> fix_rs
 }
 
 void create_gf() {
@@ -81,7 +113,11 @@ void create_gf() {
 
   for (int i = 0; i < 255; i++) {
     int a = exp[i];
+<<<<<<< HEAD
     std::cout << std::bitset<8>{static_cast<unsigned long long>(a)};
+=======
+    std::cout << std::showbase << std::hex << a;
+>>>>>>> fix_rs
     if (i != 0 && i % 15 == 0) {
       std::cout << ",\n";
     } else if (i == 254) {
@@ -92,7 +128,11 @@ void create_gf() {
   }
   for (int i = 0; i < 256; i++) {
     int a = log[i];
+<<<<<<< HEAD
     std::cout << std::bitset<8>{static_cast<unsigned long long>(a)};
+=======
+    std::cout << std::showbase << std::hex << a;
+>>>>>>> fix_rs
     if (i != 0 && i % 16 == 0) {
       std::cout << ",\n";
     } else if (i == 255) {
@@ -112,6 +152,7 @@ void create_gf() {
             << "\n";
 }
 
+<<<<<<< HEAD
 double sqrt(double x) {
   if (x < 2) {
     return x;
@@ -237,5 +278,10 @@ int main() {
   double minDouble = std::numeric_limits<double>::min();
   // create_gf();
 
+=======
+int main() {
+  // test_ccsds_short_message();
+  create_gf();
+>>>>>>> fix_rs
   return 0;
 }

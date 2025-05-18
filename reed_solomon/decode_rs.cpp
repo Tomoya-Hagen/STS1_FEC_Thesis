@@ -4,12 +4,12 @@
  * Copyright 2002, Phil Karn, KA9Q
  * May be used under the terms of the GNU Lesser General Public License (LGPL)
  */
- #include <string.h>
+ #include <cstring>
+ #include <stdio.h>
 
  #include "fec.h"
- #include "fixed.h"
 
- void decode_rs_ccsds(data_t* data, data_t* output, int* eras_pos, int no_eras)
+ int decode_rs_ccsds(data_t* data, data_t* decoded, int* eras_pos, int no_eras, int pad)
  {
      int i, r;
      data_t cdata[NN];
@@ -26,5 +26,7 @@
              data[i] = Taltab[cdata[i]];
      }
 
-     memmove(output, &data[0], NN - NROOTS);
+     // memmove(output, &data[0], NN - NROOTS);
+     std::memcpy(decoded, data, (NN - NROOTS) * sizeof(data_t));
+     return r;
  }

@@ -1,19 +1,16 @@
-#pragma once
-
 #undef A0
 #define A0 (NN) /* Special reserved value encoding zero in index form */
 
-#include <string.h>
+#include <cstring>
+
 #include "fec.h"
-#include "fixed.h"
-#include "ccsds.h"
 
 void encode_rs_8(data_t* data, data_t* parity)
 {
     int i, j;
     data_t feedback;
 
-    memset(parity, 0, NROOTS * sizeof(data_t));
+    std::memset(parity, 0, NROOTS * sizeof(data_t));
 
     for (i = 0; i < NN - NROOTS; i++) {
         feedback = INDEX_OF[data[i] ^ parity[0]];
@@ -29,7 +26,7 @@ void encode_rs_8(data_t* data, data_t* parity)
             }
         }
         /* Shift */
-        memmove(&parity[0], &parity[1], sizeof(data_t) * (NROOTS - 1));
+        std::memmove(&parity[0], &parity[1], sizeof(data_t) * (NROOTS - 1));
         if (feedback != A0)
             parity[NROOTS - 1] = ALPHA_TO[MODNN(feedback + GENPOLY[0])];
         else

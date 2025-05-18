@@ -7,10 +7,9 @@
 #include <stdio.h>
 #endif
 
-#include <string.h>
+#include <cstring>
 
 #include "fec.h"
-#include "ccsds.h"
 
 int decode_rs_8(data_t *data, int *eras_pos, int no_eras) {
   int retval;
@@ -69,7 +68,7 @@ int decode_rs_8(data_t *data, int *eras_pos, int no_eras) {
       count = 0;
       goto finish;
     }
-    memset(&lambda[1], 0, NROOTS * sizeof(lambda[0]));
+    std::memset(&lambda[1], 0, NROOTS * sizeof(lambda[0]));
     lambda[0] = 1;
 
     if (no_eras > 0) {
@@ -141,7 +140,7 @@ int decode_rs_8(data_t *data, int *eras_pos, int no_eras) {
       discr_r = INDEX_OF[discr_r]; /* Index form */
       if (discr_r == A0) {
         /* 2 lines below: B(x) <-- x*B(x) */
-        memmove(&b[1], b, NROOTS * sizeof(b[0]));
+        std::memmove(&b[1], b, NROOTS * sizeof(b[0]));
         b[0] = A0;
       } else {
         /* 7 lines below: T(x) <-- lambda(x) - discr_r*x*b(x) */
@@ -163,10 +162,10 @@ int decode_rs_8(data_t *data, int *eras_pos, int no_eras) {
                                     : MODNN(INDEX_OF[lambda[i]] - discr_r + NN);
         } else {
           /* 2 lines below: B(x) <-- x*B(x) */
-          memmove(&b[1], b, NROOTS * sizeof(b[0]));
+          std::memmove(&b[1], b, NROOTS * sizeof(b[0]));
           b[0] = A0;
         }
-        memcpy(lambda, t, (NROOTS + 1) * sizeof(t[0]));
+        std::memcpy(lambda, t, (NROOTS + 1) * sizeof(t[0]));
       }
     }
 
@@ -178,7 +177,7 @@ int decode_rs_8(data_t *data, int *eras_pos, int no_eras) {
         deg_lambda = i;
     }
     /* Find roots of the error+erasure locator polynomial by Chien search */
-    memcpy(&reg[1], &lambda[1], NROOTS * sizeof(reg[0]));
+    std::memcpy(&reg[1], &lambda[1], NROOTS * sizeof(reg[0]));
     count = 0; /* Number of roots of lambda(x) */
     for (i = 1, k = IPRIM - 1; i <= NN; i++, k = MODNN(k + IPRIM)) {
       q = 1; /* lambda[0] is always 0 */
