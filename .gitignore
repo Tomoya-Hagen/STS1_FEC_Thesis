@@ -10,5 +10,5 @@ reed_solomon/ccsds_test
 viterbi_test
 viterbi_main
 my_test
-test_rs/test_rc
+reed_solomon/test_rc
 lut
