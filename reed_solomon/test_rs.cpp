@@ -7,7 +7,6 @@
 int main() {
     data_t data[223] = {0};
     data_t parity[32] = {0};
-    int pad = 0;
     int i;
 
     std::random_device rd;                          // Seed
@@ -20,7 +19,7 @@ int main() {
     }
 
     unsigned char block[NN] = {0};
-    encode_rs_ccsds(data, parity, block, pad);
+    encode_rs_ccsds(data, parity, block);
 
     printf("Parity Symbols: ");
     for (i = 0; i < NROOTS; i++) {
@@ -52,7 +51,7 @@ int main() {
     data_t decoded[NN - NROOTS] = {0};
     int* erasures = NULL;
 
-    int roots = decode_rs_ccsds(block, decoded, erasures, 0, pad);
+    int roots = decode_rs_ccsds(block, decoded, erasures, 0);
     printf("\nroots: %d\n", roots);
 
     printf("Decoded: ");

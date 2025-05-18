@@ -7,13 +7,13 @@
  */
  #include "fec.h"
 
- void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block, int pad)
+ void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block)
  {
      int i;
      data_t cdata[NN - NROOTS];
 
      /* Convert data from dual basis to conventional */
-     for (i = 0; i < NN - NROOTS - pad; i++) {
+     for (i = 0; i < NN - NROOTS; i++) {
          cdata[i] = Tal1tab[data[i]];
      }
 

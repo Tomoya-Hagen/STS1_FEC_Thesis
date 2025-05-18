@@ -30,12 +30,6 @@ static inline int mod255(int x)
 #define IPRIM 116
 #define PAD pad
 
- /* General purpose RS codec, 8-bit symbols */
- void encode_rs_char(void* rs, unsigned char* data, unsigned char* parity);
- int decode_rs_char(void* rs, unsigned char* data, int* eras_pos, int no_eras);
- void* init_rs_char(int symsize, int gfpoly, int fcr, int prim, int nroots, int pad);
- void free_rs_char(void* rs);
-
  /* CCSDS standard (255,223) RS codec with conventional (*not* dual-basis)
   * symbol representation
   */
@@ -43,8 +37,8 @@ static inline int mod255(int x)
  int decode_rs_8(data_t* data, int* eras_pos, int no_eras);
 
  /* CCSDS standard (255,223) RS codec with dual-basis symbol representation */
- void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block, int pad);
- int decode_rs_ccsds(data_t* data, data_t* decoded, int* eras_pos, int no_eras, int pad);
+ void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block);
+ int decode_rs_ccsds(data_t* data, data_t* decoded, int* eras_pos, int no_eras);
 
  /* Tables to map from conventional->dual (Taltab) and
   * dual->conventional (Tal1tab) bases
