@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <cstring>
 #include <format>
-#include "bitsnarl.hpp"
+#include "BitScrambling.hpp"
 
 #define N 4000
 void test_scramble_identity()

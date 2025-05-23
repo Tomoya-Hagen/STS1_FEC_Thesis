@@ -5,7 +5,7 @@
  * fixed bug Aug 2007
  * May be used under the terms of the GNU Lesser General Public License (LGPL)
  */
- #include "fec.h"
+ #include "ReedSolomon.h"
 
  void encode_rs_ccsds(data_t* data, data_t* parity)
  {

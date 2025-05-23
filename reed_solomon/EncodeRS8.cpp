@@ -3,7 +3,7 @@
 
 #include <cstring>
 
-#include "fec.h"
+#include "ReedSolomon.h"
 
 void encode_rs_8(data_t* data, data_t* parity)
 {

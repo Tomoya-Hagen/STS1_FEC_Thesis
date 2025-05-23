@@ -1,6 +1,6 @@
-#include "encode_decode.h"
-#include "../reed_solomon/fec.h"
-#include "../bit_scrambling/Cpp/bitsnarl.hpp"
+#include "ChannelCoding.h"
+#include "../reed_solomon/ReedSolomon.h"
+#include "../bit_scrambling/Cpp/BitScrambling.hpp"
 
 #include <algorithm>
 #include <cstddef>     // for Byte and std::to_integer
@@ -13,7 +13,7 @@
 namespace sts1cobcsw
 {
 
-    void Encode(std::span<Byte, blockLength + overhead> data)
+    void EncodeTelemetry(std::span<Byte, blockLength + overhead> data)
     {
         std::span<Byte, blockLength> subspan(data.begin() + overhead, data.end()); // Extract the message bytes.
 
@@ -39,7 +39,7 @@ namespace sts1cobcsw
         std::memcpy(data.data() + overhead, subspan.data(), blockLength);
     }
 
-    void Decode(std::span<Byte, blockLength + overhead> data)
+    void DecodeTelecommands(std::span<Byte, blockLength + overhead> data)
     {
         for (int i = 0; i < preambleAndSyncMarker.size(); i++) {
             if (data[i] != preambleAndSyncMarker[i]) {

@@ -7,7 +7,7 @@
  #include <cstring>
  #include <stdio.h>
 
- #include "fec.h"
+ #include "ReedSolomon.h"
 
  int decode_rs_ccsds(data_t* data, int* eras_pos, int no_eras)
  {

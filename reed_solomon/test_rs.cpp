@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <random>
 
-#include "fec.h"
+#include "ReedSolomon.h"
 
 // void simple_test() {
 //     data_t data[223] = {0};

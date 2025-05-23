@@ -1,5 +1,5 @@
 #include "test.h"
-#include "encode_decode.h"
+#include "ChannelCoding.h"
 
 #include <array>
 #include <cassert>
@@ -295,7 +295,7 @@ void test_one_block() {
 
     std::span<std::byte, sts1cobcsw::blockLength + sts1cobcsw::overhead> span{src};
 
-    sts1cobcsw::Encode(span);
+    sts1cobcsw::EncodeTelemetry(span);
 
     std::memcpy(src.data(), span.data(), span.size());
 
@@ -306,7 +306,7 @@ void test_one_block() {
 
     std::span<std::byte, sts1cobcsw::blockLength + sts1cobcsw::overhead> span2{src};
 
-    sts1cobcsw::Decode(span2);
+    sts1cobcsw::DecodeTelecommands(span2);
 
     for (std::byte x : src) {
         std::cout << std::to_string(static_cast<std::uint8_t>(x)) << " ";
@@ -328,7 +328,7 @@ void test_simple() {
 
     auto original = std::vector<sts1cobcsw::Byte>(data.begin() + sts1cobcsw::overhead, data.end());
 
-    sts1cobcsw::Encode(std::span<sts1cobcsw::Byte, sts1cobcsw::blockLength + sts1cobcsw::overhead>(data.data(), data.size()));
+    sts1cobcsw::EncodeTelemetry(std::span<sts1cobcsw::Byte, sts1cobcsw::blockLength + sts1cobcsw::overhead>(data.data(), data.size()));
 
     data[sts1cobcsw::overhead + 10] ^= static_cast<sts1cobcsw::Byte>(0xFF);
     data[sts1cobcsw::overhead + 11] ^= static_cast<sts1cobcsw::Byte>(0xF1);
@@ -349,7 +349,7 @@ void test_simple() {
     data[sts1cobcsw::overhead + 27] ^= static_cast<sts1cobcsw::Byte>(0xFF);
     // data[sts1cobcsw::overhead + 28] ^= static_cast<sts1cobcsw::Byte>(0xFF);
 
-    sts1cobcsw::Decode(std::span<sts1cobcsw::Byte, sts1cobcsw::blockLength + sts1cobcsw::overhead>(data.data(), data.size()));
+    sts1cobcsw::DecodeTelecommands(std::span<sts1cobcsw::Byte, sts1cobcsw::blockLength + sts1cobcsw::overhead>(data.data(), data.size()));
 
     for (int i = sts1cobcsw::overhead; i < sts1cobcsw::messageLength + sts1cobcsw::overhead; i++) {
         assert(buffer[i] == data[i]);

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../bit_scrambling/Cpp/bitsnarl.hpp"
-#include "../reed_solomon/fec.h"
+#include "../bit_scrambling/Cpp/BitScrambling.hpp"
+#include "../reed_solomon/ReedSolomon.h"
 
 #include <cstdint>
 #include <span>
@@ -18,6 +18,6 @@ namespace sts1cobcsw
     inline constexpr auto preambleAndSyncMarker = std::to_array<Byte>({std::byte{0x33}, std::byte{0x33}, std::byte{0x33}, std::byte{0x33},
     std::byte{0x33}, std::byte{0x33}, std::byte{0x33}, std::byte{0x33},
     std::byte{0b00011010}, std::byte{0b11001111}, std::byte{0b11111100}, std::byte{0b00011101}});
-    void Encode(std::span<Byte, blockLength + overhead> data);
-    void Decode(std::span<Byte, blockLength + overhead> data);
+    void EncodeTelemetry(std::span<Byte, blockLength + overhead> data);
+    void DecodeTelecommands(std::span<Byte, blockLength + overhead> data);
 }

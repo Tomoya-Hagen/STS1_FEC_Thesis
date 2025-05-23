@@ -1,4 +1,4 @@
-#include "fec.h"
+#include "ReedSolomon.h"
 
 unsigned char Taltab[] = {
 
