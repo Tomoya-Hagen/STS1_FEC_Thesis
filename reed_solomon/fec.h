@@ -34,18 +34,18 @@ static inline int mod255(int x)
   * symbol representation
   */
  void encode_rs_8(data_t* data, data_t* parity);
- int decode_rs_8(data_t* data, int* eras_pos, int no_eras);
+ int decode_rs_8(data_t* data, int* eras_pos = nullptr, int no_eras = 0);
 
  /* CCSDS standard (255,223) RS codec with dual-basis symbol representation */
- void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block);
- int decode_rs_ccsds(data_t* data, data_t* decoded, int* eras_pos, int no_eras);
+ void encode_rs_ccsds(data_t* data, data_t* parity);
+ int decode_rs_ccsds(data_t* data, int* eras_pos = nullptr, int no_eras = 0);
 
  /* Tables to map from conventional->dual (Taltab) and
   * dual->conventional (Tal1tab) bases
   */
- extern unsigned char Taltab[], Tal1tab[];
+ extern data_t Taltab[], Tal1tab[];
 
-extern unsigned char CCSDS_alpha_to[];
-extern unsigned char CCSDS_index_of[];
-extern unsigned char CCSDS_Poly[];
+extern data_t CCSDS_alpha_to[];
+extern data_t CCSDS_index_of[];
+extern data_t CCSDS_Poly[];
  #endif /* _FEC_H_ */

@@ -7,7 +7,7 @@
  */
  #include "fec.h"
 
- void encode_rs_ccsds(data_t* data, data_t* parity, data_t* block)
+ void encode_rs_ccsds(data_t* data, data_t* parity)
  {
      int i;
      data_t cdata[NN - NROOTS];
@@ -22,13 +22,5 @@
      /* Convert parity from conventional to dual basis */
      for (i = 0; i < NROOTS; i++) {
          parity[i] = Taltab[parity[i]];
-     }
-
-     for (i = 0; i < NN; i++) {
-        if (i < NN - NROOTS) {
-            block[i] = data[i];
-        } else {
-            block[i] = parity[i - (NN - NROOTS)];
-        }
      }
  }

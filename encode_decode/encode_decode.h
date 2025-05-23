@@ -1,8 +1,7 @@
 #pragma once
 
 #include "../bit_scrambling/Cpp/bitsnarl.hpp"
-#include "../reed_solomon/rs.hpp"
-#include "../viterbi/viterbi.h"
+#include "../reed_solomon/fec.h"
 
 #include <cstdint>
 #include <span>
@@ -10,8 +9,15 @@
 
 namespace sts1cobcsw
 {
-    void Encode(std::span<std::uint8_t> src, std::vector<std::uint8_t> &dst);
-    void ConvertBases(uint8_t *data, bool dual_to_basis, size_t size);
-    void AppendPreambleAndSyncMarker(std::vector<std::uint8_t> &encoded);
-    void Decode(std::span<std::uint8_t> src, std::vector<std::uint8_t> &dst);
+    using Byte = std::byte;
+    inline constexpr auto blockLength = 255;
+    inline constexpr auto messageLength = 223;
+    inline constexpr auto nParitySymbols = 32;
+    inline constexpr auto overhead = 8 + 4; // preamble and ASM.
+    static_assert(nParitySymbols == blockLength - messageLength);
+    inline constexpr auto preambleAndSyncMarker = std::to_array<Byte>({std::byte{0x33}, std::byte{0x33}, std::byte{0x33}, std::byte{0x33},
+    std::byte{0x33}, std::byte{0x33}, std::byte{0x33}, std::byte{0x33},
+    std::byte{0b00011010}, std::byte{0b11001111}, std::byte{0b11111100}, std::byte{0b00011101}});
+    void Encode(std::span<Byte, blockLength + overhead> data);
+    void Decode(std::span<Byte, blockLength + overhead> data);
 }

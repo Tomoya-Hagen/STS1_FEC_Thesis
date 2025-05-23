@@ -1,9 +1,5 @@
 #pragma once
 
-#include "../viterbi/viterbi.h"
-
-auto codec = ViterbiCodec();
-
 void test_encode_decode_short();
 
 void test_encode_decode_long();
