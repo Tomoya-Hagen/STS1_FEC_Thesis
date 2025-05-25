@@ -153,7 +153,7 @@ namespace bitsn
     {
         for (int i = 0; i < bytes.size(); i++)
         {
-            bytes[i] ^= GF_table_TM[i % 255];
+            bytes[i] ^= GF_table_TC[i % 255];
         }
     }
 
