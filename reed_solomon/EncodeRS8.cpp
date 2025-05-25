@@ -5,7 +5,7 @@
 
 #include "ReedSolomon.h"
 
-void encode_rs_8(data_t* data, data_t* parity)
+void EncodeRS8(data_t* data, data_t* parity)
 {
     int i, j;
     data_t feedback;

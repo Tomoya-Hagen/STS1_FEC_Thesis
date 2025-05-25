@@ -7,7 +7,7 @@
  */
  #include "ReedSolomon.h"
 
- void encode_rs_ccsds(data_t* data, data_t* parity)
+ void EncodeRSCcsds(data_t* data, data_t* parity)
  {
      int i;
      data_t cdata[NN - NROOTS];
@@ -17,7 +17,7 @@
          cdata[i] = Tal1tab[data[i]];
      }
 
-     encode_rs_8(cdata, parity);
+     EncodeRS8(cdata, parity);
 
      /* Convert parity from conventional to dual basis */
      for (i = 0; i < NROOTS; i++) {

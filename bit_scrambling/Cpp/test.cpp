@@ -13,9 +13,9 @@ void test_scramble_identity()
         bytes_orig[i] = rand() % 255;
     }
     std::memcpy(bytes_copy.begin(), bytes_orig.begin(), N);
-    bitsn::unscramble_telecommand(bytes_orig);
+    bitsn::UnscrambleTelecommands(bytes_orig);
     // bitsn::scramble_telemetry(bytes_orig);
-    bitsn::unscramble_telecommand(bytes_orig);
+    bitsn::UnscrambleTelecommands(bytes_orig);
     for (int i = 0; i < N; i++)
     {
         if (bytes_orig[i] != bytes_copy[i])
@@ -36,14 +36,14 @@ void test_scramble_error_spread()
         bytes_orig[i] = rand() % 255;
     }
     memcpy(bytes_scrambled.begin(), bytes_orig.begin(), N);
-    bitsn::unscramble_telecommand(bytes_scrambled);
+    bitsn::UnscrambleTelecommands(bytes_scrambled);
     for (int p = 0; p < N; p++)
     { // error at p
         std::array<uint8_t, N> bytes_dirty;
         memcpy(bytes_dirty.begin(), bytes_scrambled.begin(), N);
         bytes_dirty[p] += 7; // inject some error
         // bitsn::scramble_telemetry(bytes_dirty);
-        bitsn::unscramble_telecommand(bytes_dirty);
+        bitsn::UnscrambleTelecommands(bytes_dirty);
         int same_count = 0;
         for (int i = 0; i < N; i++)
         {
@@ -71,7 +71,7 @@ void test_scramble_and_unscramble()
     }
     std::cout << std::endl;
 
-    bitsn::unscramble_telecommand(data);
+    bitsn::UnscrambleTelecommands(data);
     std::cout << "Scrambled" << std::endl;
     for (auto &e : data)
     {
@@ -80,7 +80,7 @@ void test_scramble_and_unscramble()
     std::cout << std::endl;
 
     // bitsn::scramble_telemetry(data);
-    bitsn::unscramble_telecommand(data);
+    bitsn::UnscrambleTelecommands(data);
     std::cout << "Un-Scrambled" << std::endl;
     for (auto &e : data)
     {
@@ -100,7 +100,7 @@ void test_scramble_and_unscramble2()
     }
     std::cout << std::endl;
 
-    bitsn::unscramble_telecommand(data);
+    bitsn::UnscrambleTelecommands(data);
     std::cout << "Scrambled" << std::endl;
     for (auto &e : data)
     {
@@ -109,7 +109,7 @@ void test_scramble_and_unscramble2()
     std::cout << std::endl;
 
     // bitsn::scramble_telemetry(data);
-    bitsn::unscramble_telecommand(data);
+    bitsn::UnscrambleTelecommands(data);
     std::cout << "Un-Scrambled" << std::endl;
     for (auto &e : data)
     {
@@ -137,7 +137,7 @@ void test_scramble_and_unscramble_string()
     }
     std::cout << std::endl;
 
-    bitsn::unscramble_telecommand(bytes);
+    bitsn::UnscrambleTelecommands(bytes);
 
     std::cout << "Scrambled bytes: ";
     for (int i = 0; i < 16; i++)
@@ -150,7 +150,7 @@ void test_scramble_and_unscramble_string()
     std::cout << "Scrambled text: " << scrambled_data << std::endl;
 
     // bitsn::scramble_telemetry(bytes);
-    bitsn::unscramble_telecommand(bytes);
+    bitsn::UnscrambleTelecommands(bytes);
 
     std::string unscrambled_data(bytes.begin(), bytes.end());
 

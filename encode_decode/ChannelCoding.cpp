@@ -23,8 +23,8 @@ namespace sts1cobcsw
             v[i] = std::to_integer<data_t>(subspan[i]);
         }
 
-        encode_rs_ccsds(v.data(), v.data() + messageLength);
-        bitsn::scramble_telemetry(v);
+        EncodeRSCcsds(v.data(), v.data() + messageLength);
+        bitsn::ScrambleTelemetry(v);
 
         // Move elements rightwards
         // std::copy_backward(data.begin(), data.end() - (nParitySymbols + overhead), data.end());
@@ -53,8 +53,8 @@ namespace sts1cobcsw
             v[i] = std::to_integer<data_t>(subspan[i]);
         }
 
-        bitsn::unscramble_telecommand(v);
-        decode_rs_ccsds(v.data());
+        bitsn::UnscrambleTelecommands(v);
+        DecodeRSCcsds(v.data());
 
         for (int i = 0; i < v.size(); i++) {
             subspan[i] = static_cast<Byte>(v[i]);
