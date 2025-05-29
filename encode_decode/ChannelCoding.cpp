@@ -1,5 +1,5 @@
 #include "ChannelCoding.hpp"
-#include "../reed_solomon/ReedSolomon.h"
+#include "ReedSolomon.hpp"
 
 #include <algorithm>
 #include <array>
@@ -59,7 +59,7 @@ namespace sts1cobcsw
 
     auto Encode(std::span<Byte, blockLength> data) -> void
     {
-        // EncodeRSCcsds(static_cast<data_t*>(data.data()), static_cast<data_t*>(data.data() + messageLength));
+        RSEncode(static_cast<data_t*>(data.data()));
         Scramble(data);
     }
 
@@ -67,7 +67,7 @@ namespace sts1cobcsw
     auto Decode(std::span<Byte, blockLength> data) -> void
     {
         Unscramble(data);
-        // DecodeRSCcsds(static_cast<data_t*>(data.data()));
+        RSDecode(static_cast<data_t*>(data.data()));
     }
 
 
