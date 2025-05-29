@@ -3,9 +3,12 @@
 #include <array>
 #include <cassert>
 #include <string>
+#include <span>
 #include <valarray>
 #include <vector>
 #include <cstddef>
+
+#include "../Configuration.hpp"
 
 namespace bitsn
 {
@@ -145,26 +148,19 @@ namespace bitsn
         return table;
     }
 
-    template <
-        typename T,
-        typename std::enable_if<is_array_of_uint8<T>::value, std::nullptr_t>::type = nullptr>
-    // requires (is_array_of_uint8<T>::value)
-    void UnscrambleTelecommands(T &bytes)
+    void Unscramble(std::span<Byte> data)
     {
-        for (int i = 0; i < bytes.size(); i++)
+        for (int i = 0; i < data.size(); i++)
         {
-            bytes[i] ^= GF_table_TC[i % 255];
+            data[i] ^= GF_table_TC[i % 255];
         }
     }
 
-    template <
-        typename T,
-        typename std::enable_if<is_array_of_uint8<T>::value, std::nullptr_t>::type = nullptr>
-    void ScrambleTelemetry(T &bytes) //
+    void Scramble(std::span<Byte> data)
     {
-        for (int i = 0; i < bytes.size(); i++)
+        for (int i = 0; i < data.size(); i++)
         {
-            bytes[i] ^= GF_table_TM[i % 255];
+            data[i] ^= GF_table_TM[i % 255];
         }
     }
 

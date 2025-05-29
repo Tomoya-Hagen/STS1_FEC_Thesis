@@ -36,18 +36,9 @@ static inline int mod255(int x)
  extern data_t CCSDS_index_of[];
  extern data_t CCSDS_Poly[];
 
- /* CCSDS standard (255,223) RS codec with conventional (*not* dual-basis)
-  * symbol representation
-  */
- void EncodeRS8(data_t* data, data_t* parity);
- int DecodeRS8(data_t* data, int* eras_pos = nullptr, int no_eras = 0);
 
- /* CCSDS standard (255,223) RS codec with dual-basis symbol representation */
  void EncodeRSCcsds(data_t* data, data_t* parity);
- int DecodeRSCcsds(data_t* data, int* eras_pos = nullptr, int no_eras = 0);
+ int DecodeRSCcsds(data_t* data);
 
- /* Tables to map from conventional->dual (Taltab) and
-  * dual->conventional (Tal1tab) bases
-  */
 
  #endif /* _FEC_H_ */

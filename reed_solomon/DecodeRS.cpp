@@ -9,7 +9,7 @@
 
  #include "ReedSolomon.h"
 
- int DecodeRSCcsds(data_t* data, int* eras_pos, int no_eras)
+ int DecodeRSCcsds(data_t* data)
  {
      int i, r;
      data_t cdata[NN];
@@ -18,7 +18,7 @@
      for (i = 0; i < NN; i++)
          cdata[i] = Tal1tab[data[i]];
 
-     r = DecodeRS8(cdata, eras_pos, no_eras);
+     r = DecodeRS8(cdata, nullptr, 0);
 
      if (r > 0) {
          /* Convert from conventional to dual basis */
